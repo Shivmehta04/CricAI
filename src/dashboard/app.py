@@ -256,7 +256,12 @@ elif page == "🤖 Match Predictor":
 
             st.subheader("🔑 Key Prediction Factors")
             for f in result["top_factors"]:
-                st.markdown(f"- {f}")
+                f_clean = str(f).replace(" elected to 0", " elected to field").replace(" elected to 1", " elected to bat")
+                f_clean = f_clean.replace("Pitch condition: 0", "Pitch condition: batting-friendly")
+                f_clean = f_clean.replace("Pitch condition: 1", "Pitch condition: pace-friendly")
+                f_clean = f_clean.replace("Pitch condition: 2", "Pitch condition: spin-friendly")
+                f_clean = f_clean.replace("Pitch condition: 3", "Pitch condition: swing-friendly")
+                st.markdown(f"- {f_clean}")
 
             confidence = result["confidence_score"]
             color = "green" if confidence > 60 else "orange" if confidence > 35 else "red"
