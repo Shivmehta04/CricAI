@@ -126,8 +126,8 @@ def predict_match(
     win_prob_a = float(prob[1])
     win_prob_b = float(prob[0])
 
-    # Confidence = distance from 0.5
-    confidence = abs(win_prob_a - 0.5) * 200  # 0-100 scale
+    # Confidence = 50% to 100% scale based on distance from 50/50
+    confidence = 50.0 + abs(win_prob_a - 0.5) * 100  # 50-100 scale
 
     # Re-evaluate top factors with actual win_prob_a
     top_factors = _build_top_factors(ta, tb, row, win_prob_a)
@@ -161,15 +161,20 @@ def _build_top_factors(ta, tb, row, win_prob_a):
         better = ta if wr_diff > 0 else tb
         factors.append(f"Recent form: {better['team_name']} win rate {better['win_rate_last_2_years']:.0%}")
 
+    # Map toss decision string or code to clean string
+    toss_dec = str(row.get("toss_decision", "field"))
+    if toss_dec in ["0", "1"]:
+        toss_dec = "field" if toss_dec == "0" else "bat"
     if row.get("toss_win", 0) == 1:
-        factors.append(f"Toss advantage: Toss-winner elected to {row.get('toss_decision', 'field')}")
+        factors.append(f"Toss advantage: Toss-winner elected to {toss_dec}")
 
     if row.get("dew_factor_numeric", 0) >= 2:
         factors.append("Heavy dew: favours chasing team (second innings)")
 
-    pitch = row.get("pitch_type", "")
-    if isinstance(pitch, int):
-        pitch = "unknown"
+    # Map pitch type string or code to clean string
+    pitch = str(row.get("pitch_type", "batting-friendly"))
+    pitch_map = {"0": "batting-friendly", "1": "pace-friendly", "2": "spin-friendly", "3": "swing-friendly"}
+    pitch = pitch_map.get(pitch, pitch)
     factors.append(f"Pitch condition: {pitch}")
 
     if win_prob_a > 0.65:
