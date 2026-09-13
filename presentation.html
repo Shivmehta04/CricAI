@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CricAI — Executive Presentation Deck (KDAC-4)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  @page {
+    size: 16in 9in;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #0f172a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 16in;
+    height: 9in;
+    page-break-after: always;
+    position: relative;
+    padding: 3.5rem 4.5rem;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  /* Title slide - flat dark background */
+  .slide.title-slide {
+    background: #0f172a;
+    color: #ffffff;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4.5rem 5.5rem;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 3px solid #059669;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1.5px solid #e2e8f0;
+    padding-top: 1rem;
+    font-size: 0.95rem;
+    color: #64748b;
+  }
+
+  /* Main content layout */
+  .content-body {
+    flex: 1;
+    display: flex;
+    gap: 3rem;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  .col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .section-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #059669;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1.5px solid #cbd5e1;
+  }
+
+  .bullet-list {
+    list-style: none;
+  }
+
+  .bullet-list li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 1.1rem;
+    font-size: 1.02rem;
+    color: #334155;
+    line-height: 1.65;
+  }
+
+  .bullet-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #059669;
+    font-size: 1.6rem;
+    line-height: 1;
+    top: -0.1rem;
+  }
+
+  /* Table design */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+  }
+
+  th {
+    border-bottom: 2.5px solid #0f172a;
+    color: #0f172a;
+    padding: 1rem 1.1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.95rem 1.1rem;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 1rem;
+    color: #334155;
+    line-height: 1.5;
+  }
+
+  .badge-yes {
+    color: #059669;
+    font-weight: 700;
+  }
+
+  .badge-no {
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  .text-block {
+    font-size: 1.02rem;
+    color: #334155;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 4rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1.5px solid #e2e8f0;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-val {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #059669;
+    line-height: 1;
+  }
+
+  .stat-desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  .code-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.92rem;
+    color: #0f172a;
+    line-height: 1.65;
+  }
+
+  @media print {
+    body { background: none; }
+    .slide { margin: 0; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title Slide -->
+<div class="slide title-slide">
+  <div style="font-size: 1rem; font-weight: 700; color: #10b981; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">
+    GLS Nexus Hackathon 2026 • Problem Statement KDAC-4
+  </div>
+  
+  <h1 style="font-size: 4.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.03em; margin-bottom: 1.2rem;">
+    CricAI Platform
+  </h1>
+  
+  <p style="font-size: 1.75rem; color: #94a3b8; max-width: 1000px; font-weight: 400; margin-bottom: 3.5rem; line-height: 1.5;">
+    ICC Men's T20 World Cup 2026 Match Outcome Prediction & Strategy Engine
+  </p>
+
+  <div style="display: flex; gap: 4rem; font-size: 1.1rem; color: #cbd5e1; border-top: 1.5px solid #334155; padding-top: 1.8rem; width: 100%;">
+    <span><strong>Company:</strong> Kenex AI</span>
+    <span><strong>Domain:</strong> Machine Learning & Data Analytics</span>
+    <span><strong>Highlights:</strong> End-to-End Python Pipeline • Scikit-Learn ML Models</span>
+  </div>
+</div>
+
+<!-- SLIDE 2: Significance -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Why This Matters</div>
+      <div class="subtitle">The critical strategic necessity in modern T20 tournament analytics</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Team Management & Operations</div>
+      <ul class="bullet-list">
+        <li>Eliminates subjective human bias during playing XI selection and team composition choices.</li>
+        <li>Monitors real-time player form trends and venue pitch suitabilities across tournament stages.</li>
+        <li>Provides empirical backing for toss decisions based on atmospheric dew models.</li>
+        <li>Replaces reactive post-match debriefs with predictive pre-match tactical simulations.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Broadcasters & Fan Engagement</div>
+      <ul class="bullet-list">
+        <li>Delivers live match win probability shifts ball-by-ball during active broadcasts.</li>
+        <li>Generates data-backed storylines for commentators, analysts, and pre-show panels.</li>
+        <li>Provides transparent feature importance metrics explaining key win drivers.</li>
+        <li>Enhances fan engagement with accessible probabilistic match breakdowns.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Data Analytics Infrastructure</div>
+      <ul class="bullet-list">
+        <li>Automates 70%+ of manual data cleaning and transformation processing overhead.</li>
+        <li>Unifies fragmented venue reports, weather telemetry, and scorecard event feeds.</li>
+        <li>Provides instant access to clean feature matrices without manual SQL wrangling.</li>
+        <li>Establishes a standardized data warehouse foundation for continuous model updates.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item">
+      <div class="stat-val">500+</div>
+      <div class="stat-desc">Matches Analyzed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">11,900+</div>
+      <div class="stat-desc">Ball-by-Ball Records</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">17</div>
+      <div class="stat-desc">Engineered Features</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-val">67%</div>
+      <div class="stat-desc">Model Accuracy</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 3: Problem Statement -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Problem Statement</div>
+      <div class="subtitle">Fragmented data sources and lack of real-time strategic intelligence</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">The Data Fragmentation Challenge</div>
+      <div class="text-block">
+        Modern cricket generates massive volumes of detailed data, but it exists in isolated silos across multiple disparate formats:
+      </div>
+      <ul class="bullet-list">
+        <li><strong>Player Statistics:</strong> Historical records for batting averages, strike rates, and bowling economies.</li>
+        <li><strong>Venue & Weather Conditions:</strong> Pitch pace, spin ratings, humidity, temperature, and dew factors.</li>
+        <li><strong>Ball-by-Ball Feeds:</strong> Detailed event logs capturing runs, boundaries, and wickets.</li>
+        <li><strong>Squad Dynamics:</strong> Team composition changes and role assignments across phases.</li>
+      </ul>
+      <div class="text-block" style="color: #dc2626; font-weight: 600; margin-top: 1rem;">
+        Consequence: Current match analysis is manual, partial, and performed too late during a tournament to influence real-time strategy.
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Required Platform Deliverables</div>
+      <ul class="bullet-list">
+        <li><strong>Data Source Simulation:</strong> Generate T20 match feeds for 20 international teams across 10 venues using Python.</li>
+        <li><strong>Data Warehouse Design:</strong> Architect a clean SQLite relational database schema stitching player stats, matches, and weather.</li>
+        <li><strong>Automated ETL Pipeline:</strong> Automate data extraction, cleaning, transformation, and feature storage using Pandas.</li>
+        <li><strong>ML Win Predictor:</strong> Train Random Forest and Logistic Regression models for probabilistic match outcome predictions.</li>
+        <li><strong>GenAI Strategy Layer:</strong> Automatically synthesize model outputs into actionable tactical briefs for team management.</li>
+        <li><strong>Streamlit Dashboard:</strong> Interactive web interface for team analysis, live predictions, and strategy exports.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 4: Proposed Solution -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Proposed Solution: CricAI Ecosystem</div>
+      <div class="subtitle">An end-to-end platform bridging raw data to tactical execution</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">1. Data Engineering & Warehousing</div>
+      <ul class="bullet-list">
+        <li>Simulates 500+ historical and live-style T20 matches across 20 international teams using Python.</li>
+        <li>Processes 11,900+ granular ball-by-ball event records into structured formats.</li>
+        <li>Cleans missing values, normalizes strike rates, and computes player performance indices using Pandas.</li>
+        <li>Stores structured records in an operational SQLite database warehouse (`data/cricket_warehouse.db`).</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">2. Predictive Machine Learning Engine</div>
+      <ul class="bullet-list">
+        <li>Engineers 17 dynamic features spanning team ranking differentials, win rates, pitch ratings, and dew indices.</li>
+        <li>Trains Random Forest and Logistic Regression classification models using Scikit-Learn with 5-fold cross-validation.</li>
+        <li>Selects the optimal model based on accuracy and AUC-ROC evaluation metrics.</li>
+        <li>Outputs real-time win probabilities %, model confidence scores, and key predictive drivers.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">3. Strategy Brief & User Interface</div>
+      <ul class="bullet-list">
+        <li>Translates quantitative win probability outputs into plain-language tactical coaching briefs.</li>
+        <li>Provides venue-specific batting acceleration targets, bowling containment plans, and toss guidance.</li>
+        <li>Delivers interactive EDA analytics, scenario simulation, and 1-click strategy exports via Streamlit.</li>
+        <li>Exposes real-time prediction endpoints through a lightweight REST API built with FastAPI.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 5: USP -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Unique Selling Proposition (USP)</div>
+      <div class="subtitle">Competitive analysis demonstrating why CricAI stands out</div>
+    </div>
+  </div>
+
+  <div class="content-body" style="flex-direction: column;">
+    <table>
+      <thead>
+        <tr>
+          <th>Capability / Feature</th>
+          <th style="color: #059669;">CricAI Platform</th>
+          <th>ESPNcricinfo / Public Tools</th>
+          <th>Traditional Scouting</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>End-to-End Automated Pipeline</strong></td>
+          <td><span class="badge-yes">✓ Fully Automated Python ETL & ML</span></td>
+          <td><span class="badge-no">✗ Static / Manual Updates</span></td>
+          <td><span class="badge-no">✗ Spreadsheets</span></td>
+        </tr>
+        <tr>
+          <td><strong>Environmental Physics Integration</strong></td>
+          <td><span class="badge-yes">✓ Dew, Pitch Pace/Spin, Wind, Temp</span></td>
+          <td><span class="badge-no">✗ Basic Pitch Type Only</span></td>
+          <td><span class="badge-no">✗ Subjective Reports</span></td>
+        </tr>
+        <tr>
+          <td><strong>GenAI Tactical Strategy Briefs</strong></td>
+          <td><span class="badge-yes">✓ Automated Coaching Briefs</span></td>
+          <td><span class="badge-no">✗ None</span></td>
+          <td><span class="badge-no">✗ Manual Notes</span></td>
+        </tr>
+        <tr>
+          <td><strong>Interactive Dashboard UI</strong></td>
+          <td><span class="badge-yes">✓ Streamlit Web Application</span></td>
+          <td><span class="badge-no">✗ Closed Proprietary UI</span></td>
+          <td><span class="badge-no">✗ None</span></td>
+        </tr>
+        <tr>
+          <td><strong>Explainable Key Factors</strong></td>
+          <td><span class="badge-yes">✓ Feature Importance Breakdown</span></td>
+          <td><span class="badge-no">✗ Black-box Odds</span></td>
+          <td><span class="badge-no">✗ Intuition-based</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-block" style="margin-top: 1.8rem; font-weight: 600; color: #059669; font-size: 1.05rem;">
+      Core Competitive Advantage: CricAI is an open, easy-to-deploy platform combining quantitative win probabilities with natural language AI coaching notes using a clean, accessible Python tech stack.
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 6: Workflow Diagram -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">System Architecture & Workflow</div>
+      <div class="subtitle">Data transformation journey from ingestion to strategic presentation</div>
+    </div>
+  </div>
+
+  <div class="content-body" style="flex-direction: column; justify-content: space-between;">
+    <!-- Flat Flowchart SVG -->
+    <svg width="100%" height="180" viewBox="0 0 950 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Step 1 -->
+      <text x="80" y="60" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="17">1. Data Simulation</text>
+      <text x="80" y="90" text-anchor="middle" fill="#64748b" font-size="14">Python Script</text>
+      <text x="80" y="112" text-anchor="middle" fill="#64748b" font-size="14">(500 Matches, Venues)</text>
+
+      <path d="M170 85 L220 85" stroke="#059669" stroke-width="2.5" stroke-dasharray="5 5"/>
+
+      <!-- Step 2 -->
+      <text x="300" y="60" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="17">2. ETL Pipeline</text>
+      <text x="300" y="90" text-anchor="middle" fill="#64748b" font-size="14">Pandas Processing</text>
+      <text x="300" y="112" text-anchor="middle" fill="#64748b" font-size="14">(Clean & Transform)</text>
+
+      <path d="M380 85 L430 85" stroke="#059669" stroke-width="2.5" stroke-dasharray="5 5"/>
+
+      <!-- Step 3 -->
+      <text x="510" y="60" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="17">3. SQLite Database</text>
+      <text x="510" y="90" text-anchor="middle" fill="#64748b" font-size="14">Relational Warehouse</text>
+      <text x="510" y="112" text-anchor="middle" fill="#64748b" font-size="14">(6 Operational Tables)</text>
+
+      <path d="M590 85 L640 85" stroke="#059669" stroke-width="2.5" stroke-dasharray="5 5"/>
+
+      <!-- Step 4 -->
+      <text x="720" y="60" text-anchor="middle" fill="#0f172a" font-weight="bold" font-size="17">4. ML Model</text>
+      <text x="720" y="90" text-anchor="middle" fill="#64748b" font-size="14">Scikit-Learn Classifier</text>
+      <text x="720" y="112" text-anchor="middle" fill="#64748b" font-size="14">(Win Probability %)</text>
+
+      <path d="M800 85 L840 85" stroke="#059669" stroke-width="2.5" stroke-dasharray="5 5"/>
+
+      <!-- Step 5 -->
+      <text x="890" y="60" text-anchor="middle" fill="#059669" font-weight="bold" font-size="17">5. Streamlit App</text>
+      <text x="890" y="90" text-anchor="middle" fill="#64748b" font-size="14">Dashboard & Strategy</text>
+      <text x="890" y="112" text-anchor="middle" fill="#64748b" font-size="14">(Interactive UI)</text>
+    </svg>
+
+    <div style="display: flex; gap: 2.5rem; border-top: 1.5px solid #e2e8f0; padding-top: 1.5rem; margin-top: 1rem;">
+      <div style="flex: 1;">
+        <div style="font-weight: 700; color: #059669; font-size: 1.05rem; margin-bottom: 0.5rem;">Phase 1: Data Ingestion & Storage</div>
+        <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">Simulated match feeds and ball-by-ball logs are ingested, cleaned using Pandas, and stored in a lightweight SQLite relational database.</div>
+      </div>
+      <div style="flex: 1;">
+        <div style="font-weight: 700; color: #059669; font-size: 1.05rem; margin-bottom: 0.5rem;">Phase 2: ML Model Training</div>
+        <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">17 engineered differential features feed a Scikit-Learn Random Forest model to predict win probabilities with 5-fold cross-validation.</div>
+      </div>
+      <div style="flex: 1;">
+        <div style="font-weight: 700; color: #059669; font-size: 1.05rem; margin-bottom: 0.5rem;">Phase 3: Streamlit UI & Strategy</div>
+        <div style="font-size: 0.95rem; color: #475569; line-height: 1.6;">Model outputs are presented through an interactive Streamlit dashboard featuring live predictions and plain-language strategy briefs.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 7: Technologies -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Simplified Technology Stack</div>
+      <div class="subtitle">Clean, robust Python tools for easy development and deployment</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Data Processing</div>
+      <ul class="bullet-list">
+        <li><strong>Python 3.11:</strong> Main programming language.</li>
+        <li><strong>Pandas:</strong> Data cleaning, transformation, and aggregation.</li>
+        <li><strong>NumPy:</strong> Fast numerical operations and synthetic statistical data simulation.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Data Storage</div>
+      <ul class="bullet-list">
+        <li><strong>SQLite Database:</strong> Lightweight, serverless relational database (`cricket_warehouse.db`).</li>
+        <li><strong>6 Relational Tables:</strong> `teams`, `players`, `matches`, `venue_conditions`, `innings_summary`, `ml_features`.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Machine Learning</div>
+      <ul class="bullet-list">
+        <li><strong>Scikit-Learn:</strong> Random Forest and Logistic Regression ML classification models.</li>
+        <li><strong>Cross-Validation:</strong> Stratified 5-fold validation for evaluation.</li>
+        <li><strong>Feature Importances:</strong> Driver extraction for explainability.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">User Interface & API</div>
+      <ul class="bullet-list">
+        <li><strong>Streamlit:</strong> Interactive web dashboard UI.</li>
+        <li><strong>Plotly:</strong> Interactive charts and graphs.</li>
+        <li><strong>FastAPI:</strong> Lightweight REST backend.</li>
+        <li><strong>Git & GitHub:</strong> Version control repository.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 8: Data Warehouse Design -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">SQLite Data Warehouse Architecture</div>
+      <div class="subtitle">Simple normalized relational database schema supporting analytical queries</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">teams Table</div>
+      <div class="code-text">
+        • team_id (Primary Key, INTEGER)<br>
+        • team_name (TEXT)<br>
+        • icc_ranking (INTEGER)<br>
+        • win_rate_last_2_years (REAL)<br>
+        • avg_team_score_t20 (INTEGER)<br>
+        • nrr (Net Run Rate, REAL)<br>
+        • home_win_advantage (REAL)
+      </div>
+      <div class="text-block" style="margin-top: 1rem; font-size: 0.92rem;">
+        Stores core team performance metrics, rankings, and historical winning percentages.
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">matches Table</div>
+      <div class="code-text">
+        • match_id (Primary Key, INTEGER)<br>
+        • date (TEXT)<br>
+        • team_a_id, team_b_id (Foreign Keys)<br>
+        • venue_name, pitch_type (TEXT)<br>
+        • toss_winner_id, toss_decision (TEXT)<br>
+        • score_team_a, score_team_b (INTEGER)<br>
+        • winner_id (Foreign Key, INTEGER)
+      </div>
+      <div class="text-block" style="margin-top: 1rem; font-size: 0.92rem;">
+        Stores individual match scorecards, venue linkages, toss decisions, and match outcomes.
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">venue_conditions Table</div>
+      <div class="code-text">
+        • match_id (Foreign Key, INTEGER)<br>
+        • temperature_c (REAL)<br>
+        • humidity_pct (REAL)<br>
+        • wind_speed_kmh (REAL)<br>
+        • dew_factor_numeric (INTEGER 0-3)<br>
+        • pitch_pace_rating (REAL)<br>
+        • pitch_spin_rating (REAL)
+      </div>
+      <div class="text-block" style="margin-top: 1rem; font-size: 0.92rem;">
+        Captures match-level weather telemetries and pitch ratings used as inputs for ML feature engineering.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 9: ML Model & Algorithm -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Machine Learning Predictive Engine</div>
+      <div class="subtitle">Feature engineering, model training, and accuracy benchmarks</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Predictive Pipeline Steps</div>
+      <ul class="bullet-list">
+        <li><strong>1. Data Preparation:</strong> Extract 17 match metrics including ranking differentials, 2-year win rate delta, pitch spin ratings, and dew factors using Pandas.</li>
+        <li><strong>2. Encoding & Cleaning:</strong> Encode categorical pitch and toss attributes using Scikit-Learn LabelEncoder; fill missing data using median values.</li>
+        <li><strong>3. Cross-Validation:</strong> Evaluate models using Stratified 5-Fold Cross-Validation to ensure unbiased performance.</li>
+        <li><strong>4. Model Fitting:</strong> Fit Random Forest (200 decision trees) and Logistic Regression classifiers.</li>
+        <li><strong>5. Model Output:</strong> Generate win probability percentages %, model confidence scores, and top predictive drivers.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Model Performance Evaluation</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Model Name</th>
+            <th>Test Accuracy</th>
+            <th>AUC-ROC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Random Forest (Selected Best)</strong></td>
+            <td style="color:#059669; font-weight:bold;">67.0%</td>
+            <td style="color:#059669; font-weight:bold;">0.669</td>
+          </tr>
+          <tr>
+            <td>Logistic Regression</td>
+            <td>66.0%</td>
+            <td>0.665</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-block" style="margin-top: 1.5rem; font-size: 0.95rem;">
+        <strong>Key Predictive Factors:</strong> Recent win rate differential (7.8%), wind speed (7.7%), pitch spin rating (7.5%), temperature (7.4%), pitch pace rating (7.2%), and NRR differential (7.0%).
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 10: GenAI Strategy Layer -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">GenAI Tactical Strategy Generator</div>
+      <div class="subtitle">Automated natural language coaching briefs for match preparation</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Strategy Generation Logic</div>
+      <ul class="bullet-list">
+        <li>Receives probabilistic win outputs and confidence scores directly from the Scikit-Learn ML engine.</li>
+        <li>Analyzes match parameters including pitch spin/pace scores, humidity levels, and dew factor indicators.</li>
+        <li>Synthesizes pitch-specific batting acceleration targets, bowling containment tactics, and toss recommendations.</li>
+        <li>Generates automated, structured briefing notes for head coaches, team captains, and performance analysts.</li>
+        <li>Built using clean Python text generation logic with optional LLM API compatibility.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Sample Strategy Brief Output</div>
+      <div class="code-text" style="background: #f8fafc; padding: 1.2rem; border-left: 4px solid #059669;">
+        === STRATEGY BRIEF - India vs Pakistan ===<br>
+        Phase: Semi-Final | Pitch: Spin-Friendly | Dew: Medium<br><br>
+        📊 PREDICTION: India (68.3% Win Probability | Confidence: 36.5/100)<br><br>
+        🏏 BATTING STRATEGY (India):<br>
+        • Promote aggressive lower-order hitter for final 4 overs.<br>
+        • Use spin-heavy middle overs to build steady total.<br><br>
+        🎯 BOWLING STRATEGY (India containment plan for Pakistan):<br>
+        • Deploy premier spinner from over 3 — surface will grip early.<br>
+        • Target top-order batsmen with flight and turn.<br><br>
+        🪙 TOSS INSIGHT:<br>
+        • Fielding first is strategically sound — dew aids chasing team in 2nd innings.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 11: Dashboard Preview -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Interactive Streamlit Dashboard</div>
+      <div class="subtitle">Visual exploratory data analysis and live prediction GUI</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">1. Team & Venue Analytics</div>
+      <div class="text-block">
+        Interactive visual analytics displaying team win rates, head-to-head records, venue scoring averages, pitch distributions, and toss decision charts built with Plotly.
+      </div>
+      <ul class="bullet-list">
+        <li>Team ranking vs average score scatter plots.</li>
+        <li>Venue scoring history horizontal bar charts.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">2. Match Predictor GUI</div>
+      <div class="text-block">
+        Interactive web interface allowing users to select playing teams, select tournament phases, adjust pitch pace/spin ratings, and simulate dew conditions in real time.
+      </div>
+      <ul class="bullet-list">
+        <li>Real-time win probability bar visualizations.</li>
+        <li>Model confidence gauge score display.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">3. Strategy Brief Export</div>
+      <div class="text-block">
+        Automated strategy generation panel displaying plain-language coaching notes with 1-click text file download functionality for pre-match briefing sessions.
+      </div>
+      <ul class="bullet-list">
+        <li>Instant strategy brief generation.</li>
+        <li>1-click text export for team staff.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 12: Deployment & Architecture -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Deployment & Execution</div>
+      <div class="subtitle">Easy local execution and 1-click cloud deployment</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Simple Local Execution (3 Commands)</div>
+      <ul class="bullet-list">
+        <li><strong>Step 1: Install Dependencies</strong><br><code>pip install -r requirements.txt</code></li>
+        <li><strong>Step 2: Run Automated Pipeline</strong><br><code>python run_demo.py</code> (simulates data, builds database, trains ML model)</li>
+        <li><strong>Step 3: Launch Streamlit Web App</strong><br><code>streamlit run src/dashboard/app.py</code></li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">1-Click Cloud Deployment Options</div>
+      <ul class="bullet-list">
+        <li><strong>Streamlit Community Cloud (Recommended):</strong> Connect GitHub repository and deploy `src/dashboard/app.py` instantly for free.</li>
+        <li><strong>Render / Railway:</strong> Deploy as a web service using the included Dockerfile.</li>
+        <li><strong>FastAPI REST Backend (Optional):</strong> Run `uvicorn src.api.main:app --reload` to access API endpoints and Swagger docs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 13: Assumptions & Roadmap -->
+<div class="slide">
+  <div class="header">
+    <div class="title-group">
+      <div class="title">Assumptions, Challenges & Future Scope</div>
+      <div class="subtitle">Evaluation considerations and technical roadmap</div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col">
+      <div class="section-heading">Key Project Assumptions</div>
+      <ul class="bullet-list">
+        <li>Synthetic dataset parameters accurately mirror international T20 match distributions.</li>
+        <li>Teams field optimal playing XIs without last-minute unannounced player injuries.</li>
+        <li>Venue pitch characteristics follow standard historical regional profiles.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Technical & Operational Challenges</div>
+      <ul class="bullet-list">
+        <li>Quantifying sudden micro-weather shifts and rapid humidity changes mid-innings.</li>
+        <li>Securing free, open real-time live ball-by-ball streaming API feeds during broadcasts.</li>
+        <li>Balancing feature weights between long-term historical records and recent form.</li>
+      </ul>
+    </div>
+
+    <div class="col">
+      <div class="section-heading">Strategic Future Scope</div>
+      <ul class="bullet-list">
+        <li>Direct integration with Cricsheet API for automatic real-world match data updates.</li>
+        <li>Computer Vision pitch surface inspection for automated pace/spin rating calculation.</li>
+        <li>Fine-tuned LLM for live ball-by-ball strategic commentary generation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>KDAC-4: ICC T20 World Cup 2026 Outcome Prediction</span>
+    <span>Kenex AI</span>
+  </div>
+</div>
+
+<!-- SLIDE 14: Title/Ending Slide -->
+<div class="slide title-slide">
+  <div style="font-size: 1rem; font-weight: 700; color: #10b981; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">
+    GLS Nexus Hackathon 2026 • Problem Statement KDAC-4
+  </div>
+  
+  <h2 style="font-size: 4rem; font-weight: 800; color: #ffffff; margin-bottom: 1.2rem;">
+    Thank You!
+  </h2>
+  
+  <p style="font-size: 1.6rem; color: #94a3b8; margin-bottom: 3.5rem;">
+    CricAI — Data Analytics & AI Strategy Engine for T20 Cricket
+  </p>
+
+  <div style="font-size: 1.1rem; color: #cbd5e1; border-top: 1.5px solid #334155; padding-top: 2rem; width: 100%; display: flex; gap: 4rem;">
+    <div><strong>Company:</strong> Kenex AI</div>
+    <div><strong>Platform:</strong> CricAI End-to-End Prediction Platform</div>
+    <div><strong>Deliverables:</strong> Full Codebase • Data Warehouse • Scikit-Learn Model • Streamlit App</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+
+  # ── Pipeline: Simulate + ETL + Train ──────────────────────────────────────
+  pipeline:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: cricai_pipeline
+    volumes:
+      - ../data:/app/data
+    command: python run_demo.py
+
+  # ── Streamlit Dashboard ────────────────────────────────────────────────────
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: cricai_dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ../data:/app/data
+    command: streamlit run src/dashboard/app.py --server.port=8501 --server.address=0.0.0.0
+    depends_on:
+      - pipeline
+
+  # ── FastAPI Backend ────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: cricai_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/app/data
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - pipeline
+
+volumes:
+  data:
