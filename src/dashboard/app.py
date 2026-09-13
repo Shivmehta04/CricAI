@@ -26,6 +26,22 @@ st.set_page_config(
 )
 
 DB_PATH = "data/cricket_warehouse.db"
+MODEL_PATH = "data/models/best_model.pkl"
+
+def ensure_initialized():
+    """Ensure data simulation, ETL, and ML training are run if missing."""
+    if not os.path.exists(DB_PATH) or not os.path.exists(MODEL_PATH):
+        st.warning("⚡ First-time initialization running data pipeline & ML training...")
+        from src.simulation.generate_data import simulate_all
+        from src.etl.pipeline import run_pipeline
+        from src.models.train_model import run_training
+
+        simulate_all(output_dir="data/raw")
+        run_pipeline()
+        run_training()
+        st.success("✅ Initialization complete!")
+
+ensure_initialized()
 
 @st.cache_data
 def load_table(table: str) -> pd.DataFrame:
