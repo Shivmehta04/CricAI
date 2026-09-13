@@ -51,9 +51,9 @@ def load_table(table: str) -> pd.DataFrame:
     return df
 
 # ─── Sidebar ──────────────────────────────────────────────────────────────────
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/en/thumb/4/44/ICC_logo.svg/200px-ICC_logo.svg.png", width=80)
+st.sidebar.markdown("## 🏆 ICC T20 WC 2026")
 st.sidebar.title("🏏 CricAI Platform")
-st.sidebar.markdown("**KDAC-4 | ICC T20 WC 2026**")
+st.sidebar.markdown("**KDAC-4 | Kenex AI**")
 st.sidebar.markdown("---")
 page = st.sidebar.radio("Navigate", [
     "🏠 Overview",
@@ -83,8 +83,15 @@ if page == "🏠 Overview":
 
     st.markdown("---")
     st.subheader("Platform Architecture")
-    st.image("https://i.imgur.com/placeholder.png", use_container_width=True,
-             caption="CricAI End-to-End Pipeline")
+    st.markdown("""
+    <div style="background:#0f172a; padding:1.5rem; border-radius:10px; border:1px solid #1e293b; text-align:center; color:#38bdf8; font-weight:bold; font-size:1.1rem;">
+      1. Data Generator (Python) &nbsp; ➔ &nbsp; 
+      2. ETL Pipeline (Pandas) &nbsp; ➔ &nbsp; 
+      3. Warehouse (SQLite) &nbsp; ➔ &nbsp; 
+      4. ML Predictor (Scikit-Learn) &nbsp; ➔ &nbsp; 
+      5. Strategy Brief (GenAI)
+    </div>
+    """, unsafe_allow_html=True)
 
     st.subheader("How It Works")
     cols = st.columns(6)

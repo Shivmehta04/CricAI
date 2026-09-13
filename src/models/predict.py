@@ -107,16 +107,20 @@ def predict_match(
         "pitch_spin_rating": pitch_spin_rating,
     }
 
-    # Encode categoricals
+    # Top factors (human-readable) using raw un-encoded values
+    top_factors = _build_top_factors(ta, tb, row, 0.5)
+
+    # Encode categoricals on a copy of row
+    encoded_row = row.copy()
     for col, le in le_dict.items():
-        if col in row:
+        if col in encoded_row:
             try:
-                row[col] = le.transform([str(row[col])])[0]
+                encoded_row[col] = le.transform([str(encoded_row[col])])[0]
             except ValueError:
-                row[col] = 0  # unseen label fallback
+                encoded_row[col] = 0  # unseen label fallback
 
     # Build feature vector
-    X = pd.DataFrame([row])[feature_cols].fillna(0)
+    X = pd.DataFrame([encoded_row])[feature_cols].fillna(0)
 
     prob = model.predict_proba(X)[0]
     win_prob_a = float(prob[1])
@@ -125,7 +129,7 @@ def predict_match(
     # Confidence = distance from 0.5
     confidence = abs(win_prob_a - 0.5) * 200  # 0-100 scale
 
-    # Top factors (human-readable)
+    # Re-evaluate top factors with actual win_prob_a
     top_factors = _build_top_factors(ta, tb, row, win_prob_a)
 
     predicted_winner = team_a if win_prob_a >= 0.5 else team_b
