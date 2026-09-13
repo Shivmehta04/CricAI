@@ -83,7 +83,7 @@ if page == "🏠 Overview":
 
     st.markdown("---")
     st.subheader("Platform Architecture")
-    st.image("https://i.imgur.com/placeholder.png", use_column_width=True,
+    st.image("https://i.imgur.com/placeholder.png", use_container_width=True,
              caption="CricAI End-to-End Pipeline")
 
     st.subheader("How It Works")
