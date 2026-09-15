@@ -6,6 +6,10 @@ An end-to-end data analytics & ML platform that predicts T20 cricket match outco
 
 ---
 
+# CricAI
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cric-ai.streamlit.app)
+
 ## 🚀 Quick Start (3 Commands)
 
 ```bash
